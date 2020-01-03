@@ -3,8 +3,6 @@ def productionImage
 def ACCOUNT_REGISTRY_PREFIX
 def GIT_COMMIT_HASH
 
-321442529690.dkr.ecr.us-west-2.amazonaws.com
-
 
 
 pipeline {
@@ -73,10 +71,10 @@ pipeline {
             steps {
                 echo 'Deploying release to production'
                 script {
-                    productionImage.push("deploy")
-                    sh """
-                       aws ec2 reboot-instances --region us-east-1 --instance-ids i-0e438e2bf64427c9d
-                    """
+       #             productionImage.push("deploy")
+       #            sh """
+       #                aws ec2 reboot-instances --region us-east-1 --instance-ids i-0e438e2bf64427c9d
+       #             """
                 }
             }
         }
@@ -88,16 +86,16 @@ pipeline {
             }
             steps {
                 echo 'Deploy to test environment and run integration tests'
-                script {
-                    TEST_ALB_LISTENER_ARN="arn:aws:elasticloadbalancing:us-east-1:089778365617:listener/app/testing-website/3a4d20158ad2c734/49cb56d533c1772b"
-                    sh """
-                    ./run-stack.sh example-webapp-test ${TEST_ALB_LISTENER_ARN}
-                    """
+#                script {
+#                    TEST_ALB_LISTENER_ARN="arn:aws:elasticloadbalancing:us-east-1:089778365617:listener/app/testing-website/3a4d20158ad2c734/49cb56d533c1772b"
+#                    sh """
+#                    ./run-stack.sh example-webapp-test ${TEST_ALB_LISTENER_ARN}
+#                    """
                 }
                 echo 'Running tests on the integration test environment'
                 script {
-                    sh """
-                       curl -v http://testing-website-1317230480.us-east-1.elb.amazonaws.com | grep '<title>Welcome to example-webapp</title>'
+#                    sh """
+#                       curl -v http://testing-website-1317230480.us-east-1.elb.amazonaws.com | grep '<title>Welcome to example-webapp</title>'
                        if [ \$? -eq 0 ]
                        then
                            echo tests pass
@@ -117,9 +115,9 @@ pipeline {
             }
             steps {
                 script {
-                    PRODUCTION_ALB_LISTENER_ARN="arn:aws:elasticloadbalancing:us-east-1:089778365617:listener/app/production-website/a0459c11ab5707ca/5d21528a13519da6"
-                    sh """
-                    ./run-stack.sh example-webapp-production ${PRODUCTION_ALB_LISTENER_ARN}
+#                    PRODUCTION_ALB_LISTENER_ARN="arn:aws:elasticloadbalancing:us-east-1:089778365617:listener/app/production-website/a0459c11ab5707ca/5d21528a13519da6"
+#                    sh """
+#                    ./run-stack.sh example-webapp-production ${PRODUCTION_ALB_LISTENER_ARN}
                     """
                 }
             }
