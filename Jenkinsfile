@@ -66,16 +66,16 @@ pipeline {
  
         stage('Deploy to Production fixed server') {
             when {
-                branch 'release'
+                branch 'master'
             }
             steps {
                 echo 'Deploying release to production'
-       //         script {
-       //             productionImage.push("deploy")
-       //            sh """
-       //                aws ec2 reboot-instances --region us-east-1 --instance-ids i-0e438e2bf64427c9d
-       //             """
-       //         }
+                script {
+                    productionImage.push("deploy")
+                   sh """
+                       aws ec2 reboot-instances --region us-west-2 --instance-ids i-0c3b0c7c513d12675
+                    """
+                }
             }
         }
 
