@@ -3,7 +3,7 @@ def productionImage
 def ACCOUNT_REGISTRY_PREFIX
 def GIT_COMMIT_HASH
 
-
+// Had to change something as Jenkins wasn't pulling
 
 pipeline {
     agent any
