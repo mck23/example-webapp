@@ -1,12 +1,27 @@
 #!/bin/bash
+set -e
+set -x
 
-aws cloudformation $ACTION \
-    --region us-east-2 \
+STACK_NAME=$1
+ALB_LISTENER_ARN=$2
+
+if ! aws cloudformation describe-stacks --region us-west-2 --stack-name $STACK_NAME 2>&1 > /dev/null
+then
+    finished_check=stack-create-complete
+else
+    finished_check=stack-update-complete
+fi
+
+aws cloudformation deploy \
+    --region us-west-2 \
     --stack-name $STACK_NAME \
-    --template-body file://service.yaml \
+    --template-file service.yaml \
     --capabilities CAPABILITY_NAMED_IAM \
-    --parameters \
-    ParameterKey=DockerImage,ParameterValue=321442529690.dkr.ecr.us-west-2.amazonaws.com/example-webapp:cbaa3fd222947a73907f5f9295f53cf03524557e/example-webapp:$(git rev-parse HEAD) \
-    ParameterKey=VPC,ParameterValue=vpc-0e09bd68
-    ParameterKey=Cluster,ParameterValue=default \
-    ParameterKey=Listener,ParameterValue=arn:aws:elasticloadbalancing:us-west-2:321442529690:listener/app/production-website/e048c5419a47983d/4232d6bdb9168aa0
+    --parameter-overrides \
+    "DockerImage=321442529690.dkr.ecr.us-west-2.amazonaws.com/example-webapp:$(git rev-parse HEAD)" \
+    "VPC=vpc-0e09bd68" \
+    "Subnet=subnet-06e8f04f" \
+    "Cluster=default" \
+    "Listener=$ALB_LISTENER_ARN"
+
+aws cloudformation wait $finished_check --region us-east-1 --stack-name $STACK_NAME
