@@ -114,6 +114,7 @@ pipeline {
                 branch 'master'
             }
             steps {
+                  echo 'Testing.. Deploy to Production'
 //                script {
 //                    PRODUCTION_ALB_LISTENER_ARN="arn:aws:elasticloadbalancing:us-east-1:089778365617:listener/app/production-website/a0459c11ab5707ca/5d21528a13519da6"
 //                    sh """
