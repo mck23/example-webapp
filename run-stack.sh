@@ -3,7 +3,6 @@ set -e
 set -x
 
 
-// Test code push after git reversion 
 
 STACK_NAME=$1
 ALB_LISTENER_ARN=$2
