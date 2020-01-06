@@ -5,6 +5,9 @@ set -x
 STACK_NAME=$1
 ALB_LISTENER_ARN=$2
 
+
+# 
+
 if ! aws cloudformation describe-stacks --region us-west-2 --stack-name $STACK_NAME 2>&1 > /dev/null
 then
     finished_check=stack-create-complete
