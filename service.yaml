@@ -60,7 +60,7 @@ Resources:
                         - !Ref 'Subnet'
             TaskDefinition: !Ref TaskDefinition
             LoadBalancers:
-                - ContainerName: "production-website"
+                - ContainerName: "website-service"
                   ContainerPort: 3000
                   TargetGroupArn: !Ref TargetGroup
 
