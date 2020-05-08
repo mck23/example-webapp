@@ -115,7 +115,7 @@ pipeline {
             steps {
                   echo 'Testing.. Deploy to Production'
                 script {
-                    PRODUCTION_ALB_LISTENER_ARN="arn:aws:elasticloadbalancing:us-west-2:321442529690:listener/app/production-website/e048c5419a47983d/4232d6bdb9168aa0"
+                    PRODUCTION_ALB_LISTENER_ARN="arn:aws:elasticloadbalancing:us-west-2:321442529690:listener/app/production-website/291d06690c5897fb/ac17ff1845610c14"
                     sh """
                     ./run-stack.sh example-webapp-production ${PRODUCTION_ALB_LISTENER_ARN}
                     """
