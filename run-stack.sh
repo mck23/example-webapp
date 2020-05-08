@@ -10,12 +10,12 @@ ALB_LISTENER_ARN=$2
 
 # 
 
-if ! aws cloudformation describe-stacks --region us-west-2 --stack-name $STACK_NAME 2>&1 > /dev/null
-then
+#if ! aws cloudformation describe-stacks --region us-west-2 --stack-name $STACK_NAME 2>&1 > /dev/null
+#then
     finished_check=stack-create-complete
-else
-    finished_check=stack-update-complete
-fi
+#else
+#    finished_check=stack-update-complete
+#fi
 
 aws cloudformation deploy \
     --region us-west-2 \
@@ -29,4 +29,10 @@ aws cloudformation deploy \
     "Cluster=default" \
     "Listener=$ALB_LISTENER_ARN"
 
+
 aws cloudformation wait $finished_check --region us-west-2 --stack-name $STACK_NAME
+
+
+#aws cloudformation wait $finished_check --region us-west-2 --stack-name $STACK_NAME
+
+
