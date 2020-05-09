@@ -25,7 +25,7 @@
             "Type": "AWS::EC2::Instance",
             "Properties": {
                 "InstanceType": "t1.micro",
-                "ImageId": "ami-b12da5d1",
+                "ImageId": "ami-c12da5d1",
                 "KeyName": {
                     "Ref": "KeyName"
                 },
