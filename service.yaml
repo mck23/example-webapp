@@ -49,7 +49,7 @@ Resources:
         Properties:
             Cluster: !Ref Cluster
             LaunchType: FARGATE
-#            Role: !Ref ServiceRole
+            Role: !Ref ServiceRole
             DesiredCount: !Ref DesiredCount
             NetworkConfiguration:
                     AwsvpcConfiguration:
